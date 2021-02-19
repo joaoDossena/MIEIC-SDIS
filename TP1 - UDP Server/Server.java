@@ -18,5 +18,13 @@ public class Server {
         serverSocket.receive(packet);
         String request = new String(packet.getData());
         System.out.println("Request: " + request);
+
+        // prepare response
+        InetAddress destAddress = packet.getAddress();
+        int destPort = packet.getPort();
+		packet = new DatagramPacket(rbuf, rbuf.length, destAddress, destPort);
+
+        // send response
+		serverSocket.send(packet);
 	}
 }
