@@ -20,11 +20,12 @@ public class Server {
         System.out.println("Request: " + request);
 
         // prepare response
+        
+
+        // send response
         InetAddress destAddress = packet.getAddress();
         int destPort = packet.getPort();
 		packet = new DatagramPacket(rbuf, rbuf.length, destAddress, destPort);
-
-        // send response
 		serverSocket.send(packet);
 	}
 }
