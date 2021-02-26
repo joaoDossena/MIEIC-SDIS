@@ -8,6 +8,14 @@ public class Client {
 			return;
 		}
 
+
+        InetAddress group = InetAddress.getByName(args[0]);
+		MulticastSocket socket = new MulticastSocket(args[1]);
+        socket.joinGroup(group);
+
+
+
+
 		// prepare request
 		DatagramSocket socket = new DatagramSocket(); //opening socket
 		InetAddress address = InetAddress.getByName(args[0]);
