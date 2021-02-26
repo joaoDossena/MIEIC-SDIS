@@ -3,8 +3,8 @@ import java.io.*;
 
 public class Client {
 	public static void main(String[] args) throws IOException{
-		if(args.length != 4) {	//Review 
-			System.out.println("Usage: java Client <host> <port> <oper> <opnd>*");
+		if(args.length != 4) {
+			System.out.println("Usage: java Client <multicast address> <multicast port> <oper> <opnd> *");
 			return;
 		}
 
