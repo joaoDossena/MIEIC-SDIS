@@ -8,19 +8,12 @@ public class Server {
 			return;
 		}
 
-
-		DatagramSocket socket = new DatagramSocket();
-		InetAddress group = InetAddress.getByName(args[1]);
-		byte[] buf = "8080".getBytes();
-		int multicastPort = Integer.parseInt(args[2]);
-
-		DatagramPacket packet = new DatagramPacket(buf, buf.length, group, multicastPort);
-        socket.send(packet);
-        socket.close();
+		Advertiser adv = new Advertiser("Advertiser", args[1], args[2], "teste");
+		adv.run();
+		Publisher pub = new Publisher("Publisher");
 
 
-
-		// // opening socket
+		// opening socket
 		// int port = Integer.parseInt(args[0]);
 		// DatagramSocket serverSocket = new DatagramSocket(port);
 

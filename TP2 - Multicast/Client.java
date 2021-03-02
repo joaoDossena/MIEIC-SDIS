@@ -9,22 +9,22 @@ public class Client {
 		}
 
 
-        InetAddress group = InetAddress.getByName(args[0]);
+    InetAddress group = InetAddress.getByName(args[0]);
 		MulticastSocket socket = new MulticastSocket(Integer.parseInt(args[1]));
-        socket.joinGroup(group);
-        byte[] buf = new byte[256];
+    socket.joinGroup(group);
+    byte[] buf = new byte[256];
 
 		while (true) {
-            DatagramPacket packet = new DatagramPacket(buf, buf.length);
-            socket.receive(packet);
-            String received = new String(packet.getData(), 0, packet.getLength());
-            System.out.println("Received: " + received);
-            if ("end".equals(received)) {
-                break;
-            }
+        DatagramPacket packet = new DatagramPacket(buf, buf.length);
+        socket.receive(packet);
+        String received = new String(packet.getData(), 0, packet.getLength());
+        System.out.println("Received: " + received);
+        if ("end".equals(received)) {
+            break;
         }
-        socket.leaveGroup(group);
-        socket.close();
+    }
+    socket.leaveGroup(group);
+    socket.close();
 		// // prepare request
 		// DatagramSocket socket = new DatagramSocket(); //opening socket
 		// InetAddress address = InetAddress.getByName(args[0]);
