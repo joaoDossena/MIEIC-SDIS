@@ -10,7 +10,7 @@ public class Server {
 
 		Advertiser adv = new Advertiser("Advertiser", args[1], args[2], "teste");
 		adv.run();
-		Publisher pub = new Publisher("Publisher");
+		Listener lis = new Listener("Listener");
 
 
 		// opening socket
