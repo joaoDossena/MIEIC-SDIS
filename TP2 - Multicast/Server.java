@@ -8,7 +8,7 @@ public class Server {
 			return;
 		}
 
-		Advertiser adv = new Advertiser("Advertiser", args[1], args[2], "teste");
+		Advertiser adv = new Advertiser("Advertiser", args[1], args[2], "127.0.0.1:8080");
 		Listener lis = new Listener("Listener", args[0]);
 		adv.run();
 		lis.run();
