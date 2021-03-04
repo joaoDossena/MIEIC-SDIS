@@ -9,28 +9,17 @@ public class Server {
 		}
 
 		Advertiser adv = new Advertiser("Advertiser", args[1], args[2], "teste");
+		Listener lis = new Listener("Listener", args[0]);
 		adv.run();
-		Listener lis = new Listener("Listener");
+		lis.run();
 
 
-		// opening socket
-		// int port = Integer.parseInt(args[0]);
-		// DatagramSocket serverSocket = new DatagramSocket(port);
+		
 
-		// // receiving request
-  //       byte[] rbuf = new byte[256];
-  //       DatagramPacket packet = new DatagramPacket(rbuf, rbuf.length);        
-  //       serverSocket.receive(packet);
-  //       String request = new String(packet.getData());
-  //       System.out.println("Request: " + request);
-
-  //       // prepare response
+        // prepare response
         
 
-  //       // send response
-  //       InetAddress destAddress = packet.getAddress();
-  //       int destPort = packet.getPort();
-		// packet = new DatagramPacket(rbuf, rbuf.length, destAddress, destPort);
-		// serverSocket.send(packet);
+        // send response
+        
 	}
 }

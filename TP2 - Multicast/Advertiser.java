@@ -29,11 +29,12 @@ public class Advertiser extends Thread {
 										 this.message.getBytes().length, this.multicastAddress, this.multicastPort);
 
         try {
-            // Thread.sleep(1000);
-            //make this a while loop later with a sleep function
-        	multicastSocket.send(advertisement);
+            while(true){
+                Thread.sleep(1000);
+                multicastSocket.send(advertisement);
+            }
 
-        } catch (IOException e) {
+        } catch (IOException|InterruptedException e) {
             e.printStackTrace();
         }
 
