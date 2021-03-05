@@ -12,14 +12,6 @@ public class Server {
 		Listener lis = new Listener("Listener", args[0]);
 		adv.run();
 		lis.run();
-
-
-		
-
-        // prepare response
-        
-
-        // send response
         
 	}
 }
