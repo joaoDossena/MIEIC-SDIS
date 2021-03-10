@@ -1,5 +1,3 @@
-// package example.hello;
-        
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
@@ -17,7 +15,8 @@ public class Server implements RemoteInterface {
     public String register(String dnsName, String ipAddress) throws RemoteException {
         System.out.println("REGISTER called for " + dnsName + " - " + ipAddress);
         String req = "register " + dnsName + " " + ipAddress;
-        String response = this.dnsService.handleRequest(req);
+        String response = this.dnsService.register(dnsName, ipAddress);
+        System.out.println(req + " :: " + response);
         return response;     
     }
 
@@ -25,35 +24,29 @@ public class Server implements RemoteInterface {
     @Override
     public String lookup(String dnsName) throws RemoteException {
         System.out.println("LOOKUP called for " + dnsName);
-        System.out.println("TODO:  do lookup");
         String req = "lookup " + dnsName;
-        String response = this.dnsService.handleRequest(req);
+        String response = this.dnsService.lookup(dnsName);
+        System.out.println(req + " :: " + response);
         return response;
     }
 
-    public static void main(String args[]) {
-
+    public static void main(String[] args) {
         if(args.length != 1) {
             System.out.println("Usage: java Server <remote_object_name>");
             return;
         }
 
-        String remoteObjName = args[0];
-
-        Server serverObj = new Server();
-
-        setVMProperties();
-
-        Registry registry = getRegistry();
-        
         try {
-            RemoteInterface stub = (RemoteInterface) UnicastRemoteObject.exportObject(serverObj, 4445);
+            Server server = new Server();
+            RemoteInterface stub = (RemoteInterface) UnicastRemoteObject.exportObject(server, 0);
 
-            registry.rebind(remoteObjName, stub);
+            Registry registry = LocateRegistry.getRegistry();
+            registry.rebind(args[0], stub);
 
-            System.err.println("The server is up and running. Object " + remoteObjName + " is listening at port " + "4445");
+            System.out.println("Server is on with the name " + args[0]);
+
         } catch (Exception e) {
-            System.err.println("Server exception: " + e.toString());
+            System.out.println("Server exception: " + e.toString());
             e.printStackTrace();
         }
     }
