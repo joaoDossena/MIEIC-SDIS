@@ -33,8 +33,12 @@ public class SSLServer {
  
             while (true) {
                 SSLSocket socket = (SSLSocket) serverSocket.accept();
+                System.out.println("SSLServer: New client connected");
+                // Require client authentication  
+				socket.setNeedClientAuth(true); 
+                System.out.println("SSLServer: Required client authentication");
+
  
-                System.out.println("New client connected");
                 InputStream input = socket.getInputStream();
                 byte[] buf = new byte[256];
 
