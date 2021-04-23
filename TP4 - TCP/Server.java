@@ -3,6 +3,7 @@ import java.net.*;
 import java.util.Date;
 
 public class Server {
+	private DNSServer dns = new DNSServer();
 
 	public static void main(String[] args){
 		if(args.length != 1) {
@@ -23,6 +24,8 @@ public class Server {
  
                 OutputStream output = socket.getOutputStream();
                 PrintWriter writer = new PrintWriter(output, true);
+	            handleRequest(reader.readLine());
+
  
                 writer.println(new Date().toString());
             }
@@ -32,4 +35,21 @@ public class Server {
             ex.printStackTrace();
         }
 	}
+
+	public String handleRequest(String request){
+		System.out.print(request + " :: ");
+		String response = "ERROR";
+		String args = request.split(" ");
+		switch(args[0].toUppercase()){
+			case "REGISTER":
+			this.dns.register(args[1], args[2]);
+			response = 
+			break;
+			case "LOOKUP":
+			this.dns.lookup(args[1]);
+			break;
+			default:
+			break;
+		}
+}
 }

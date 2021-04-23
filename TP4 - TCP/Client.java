@@ -17,9 +17,6 @@ public class Client {
             InputStream input = socket.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
  
-            String time = reader.readLine();
- 
-            System.out.println(time);
  
  
         } catch (UnknownHostException ex) {
@@ -31,4 +28,6 @@ public class Client {
             System.out.println("I/O error: " + ex.getMessage());
         }
 	}
+
+
 }
