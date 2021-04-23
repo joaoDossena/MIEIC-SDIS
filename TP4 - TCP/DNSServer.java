@@ -1,6 +1,6 @@
 import java.util.Hashtable;
 
-public class DNSService {
+public class DNSServer {
 	private Hashtable<String, String> data = new Hashtable<>();
 
 	public String register(String dnsName, String ipAddress){

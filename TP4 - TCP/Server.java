@@ -1,17 +1,24 @@
 import java.io.*;
 import java.net.*;
-import java.util.Date;
+
+
 
 public class Server {
-	private DNSServer dns = new DNSServer();
+	private static DNSServer dns = new DNSServer();
 
 	public static void main(String[] args){
-		if(args.length != 1) {
-			System.out.println("Usage: java Server <srvc_port>");
+		if(args.length < 1 || args.length > 2) {
+			System.out.println("Usage: java Server <port> <cypher-suite>*");
 			return;
 		}
 
 		int port = Integer.parseInt(args[0]);
+		String cypherSuite = "";
+		if(args.length == 2)
+			cypherSuite = args[1];
+		else
+			cypherSuite = "default";
+
  
         try (ServerSocket serverSocket = new ServerSocket(port)) {
  
@@ -21,13 +28,15 @@ public class Server {
                 Socket socket = serverSocket.accept();
  
                 System.out.println("New client connected");
- 
-                OutputStream output = socket.getOutputStream();
-                PrintWriter writer = new PrintWriter(output, true);
-	            handleRequest(reader.readLine());
+                 InputStream input = socket.getInputStream();
+                byte[] buf = new byte[256];
+
+                input.read(buf);
+
+                String received = new String(buf);
+	            handleRequest(received);
 
  
-                writer.println(new Date().toString());
             }
  
         } catch (IOException ex) {
@@ -36,20 +45,21 @@ public class Server {
         }
 	}
 
-	public String handleRequest(String request){
-		System.out.print(request + " :: ");
+	public static void handleRequest(String request){
 		String response = "ERROR";
-		String args = request.split(" ");
-		switch(args[0].toUppercase()){
+		String[] args = request.split(" ");
+		switch(args[0].toUpperCase()){
 			case "REGISTER":
-			this.dns.register(args[1], args[2]);
-			response = 
+			System.out.println("Server: REGISTER " + args[1] + " " + args[2]);
+			dns.register(args[1], args[2]);
 			break;
 			case "LOOKUP":
-			this.dns.lookup(args[1]);
+			System.out.println("Server: LOOKUP " + args[1]);
+			dns.lookup(args[1]);
 			break;
 			default:
 			break;
 		}
-}
+	}
+	
 }
