@@ -1,8 +1,11 @@
-import java.io.*;
-import java.net.*;
+import java.io.InputStream;
 
 import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
 
+
+import java.io.IOException;
 
 public class SSLServer {
 	private static DNSServer dns = new DNSServer();
@@ -20,16 +23,19 @@ public class SSLServer {
 		else
 			cypherSuite = "default";
 
+		SSLServerSocketFactory factory = null;  
+		 
+		factory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();  
  
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
+        try (SSLServerSocket serverSocket = (SSLServerSocket) factory.createServerSocket(port)) {
  
             System.out.println("SSLServer is listening on port " + port);
  
             while (true) {
-                Socket socket = serverSocket.accept();
+                SSLSocket socket = (SSLSocket) serverSocket.accept();
  
                 System.out.println("New client connected");
-                 InputStream input = socket.getInputStream();
+                InputStream input = socket.getInputStream();
                 byte[] buf = new byte[256];
 
                 input.read(buf);

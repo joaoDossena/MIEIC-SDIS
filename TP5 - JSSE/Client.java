@@ -1,5 +1,10 @@
-import java.net.*;
 import java.io.*;
+
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+
+
+import java.net.UnknownHostException;
 
 public class Client {
 
@@ -26,8 +31,12 @@ public class Client {
             System.out.println("Client: Unknown operation: " + operation);
             return;
         }
+
+        SSLSocketFactory factory = null;  
+         
+        factory = (SSLSocketFactory) SSLSocketFactory.getDefault();  
  
-        try (Socket socket = new Socket(hostname, port)) {
+        try (SSLSocket socket = (SSLSocket) factory.createSocket(hostname, port)) {
  
             OutputStream output = socket.getOutputStream();
             String request = operation + " " + dnsName;
@@ -45,7 +54,7 @@ public class Client {
   
         } catch (UnknownHostException ex) {
  
-            System.out.println("SSLServer not found: " + ex.getMessage());
+            System.out.println("Client: SSLServer not found: " + ex.getMessage());
  
         } catch (IOException ex) {
  
