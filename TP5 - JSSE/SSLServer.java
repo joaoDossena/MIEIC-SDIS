@@ -47,15 +47,14 @@ public class SSLServer {
 	}
 
 	public static void handleRequest(String request){
+		System.out.println("SSLServer: " + request);
 		String response = "ERROR";
 		String[] args = request.split(" ");
 		switch(args[0].toUpperCase()){
 			case "REGISTER":
-			System.out.println("SSLServer: REGISTER " + args[1] + " " + args[2]);
 			dns.register(args[1], args[2]);
 			break;
 			case "LOOKUP":
-			System.out.println("SSLServer: LOOKUP " + args[1]);
 			dns.lookup(args[1]);
 			break;
 			default:
